@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+
 export default function EventDetails() {
   const { id } = useParams();
   const [form, setForm] = useState({
@@ -13,9 +14,20 @@ export default function EventDetails() {
   });
 
   useEffect(() => {
-    // console.log(id);
-    const today = Date().toString().split(" ");
-    setForm({ ...form, ["date"]: `${today[2]}  ${today[1]}  ${today[3]}` });
+    const getEventUrl = `http://localhost:3001/api/events/${id}`;
+    fetch(getEventUrl)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        const _data = data;
+        const yy = data.date.toString().slice(0, 4);
+        const mm = data.date.toString().slice(5, 7);
+        const dd = data.date.toString().slice(8, 10);
+        const time = data.date.toString().slice(11, 16);
+        _data.date = `${dd}.${mm}.${yy} - ${time}`;
+        setForm(_data);
+      })
+      .catch((error) => console.log(error));
   }, [id]);
 
   return (
