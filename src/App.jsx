@@ -23,7 +23,7 @@ const MainLayout = () => {
   );
 };
 
-export const isAuthenticated = false;
+export const isAuthenticated = true;
 const ProtectedLayout = () => {
   // const isAuthenticated = Math.random() > 0.5 ? true : false;
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
@@ -40,9 +40,7 @@ const router = createBrowserRouter(
         <Route index element={<CreateEvent />} />
       </Route>
 
-      <Route path="event/:id" element={<ProtectedLayout />}>
-        <Route index element={<EventDetails />} />
-      </Route>
+      <Route path="event/:id" element={<EventDetails />}></Route>
 
       <Route path="*" element={<PageNotFound />} />
     </Route>
