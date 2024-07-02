@@ -15,8 +15,7 @@ const MainLayout = () => {
   return (
     <>
       <NavBar />
-      <SignUp />
-      <Login />
+
       <div>
         <Outlet />
       </div>
