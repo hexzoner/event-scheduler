@@ -24,10 +24,14 @@ const MainLayout = () => {
   );
 };
 
-export const isAuthenticated = true;
+export let Token = "";
+export function authenticate(_token) {
+  Token = _token;
+}
+
 const ProtectedLayout = () => {
   // const isAuthenticated = Math.random() > 0.5 ? true : false;
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+  return Token.length > 0 ? <Outlet /> : <Navigate to="/login" />;
 };
 
 const router = createBrowserRouter(
