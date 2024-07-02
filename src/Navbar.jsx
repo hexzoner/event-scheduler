@@ -3,12 +3,15 @@ import { NavLink } from "react-router-dom";
 export default function NavBar() {
   return (
     <div className="text-center">
-      <ul>
+      <ul className="flex justify-evenly m-auto py-2">
         <li className="">
           <NavLink to="/">Home</NavLink>
         </li>
         <li>
           <NavLink to="/create-event">Create Event</NavLink>
+        </li>
+        <li>
+          <NavLink to="/event/2">View Event 2</NavLink>
         </li>
       </ul>
     </div>
