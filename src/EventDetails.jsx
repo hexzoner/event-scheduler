@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export default function EventDetails() {
@@ -31,13 +31,17 @@ export default function EventDetails() {
   }, [id]);
 
   return (
-    <div className="text-center text-3xl py-8 my-4 bg-base-300 max-w-[700px] m-auto px-6">
-      Details of the Event {id}{" "}
+    <div className="text-center text-2xl py-8 my-4 bg-base-300 max-w-[700px] m-auto px-6 rounded-lg">
+      <p className="text-center pb-2">Details of the Event ID {id} </p>
       <div className="text-xl flex flex-col gap-2 my-4">
-        <p className="bg-base-100 ">{form.title}</p>
-        <p className="bg-base-100 ">{form.date}</p>
-        <p className="bg-base-100 ">{form.location}</p>
-        <p className="bg-base-100 ">{form.description}</p>
+        <p className="bg-base-100 py-4 rounded-lg">{form.title}</p>
+        <p className="bg-base-100 py-4 rounded-lg">{form.date}</p>
+        <p className="bg-base-100 py-4 rounded-lg">{form.location}</p>
+        <p className="bg-base-100 py-4 rounded-lg">{form.description}</p>
+
+        <Link to="/">
+          <button className="btn btn-neutral btn-lg w-fit m-auto mt-4">Return To Home</button>
+        </Link>
       </div>
     </div>
   );

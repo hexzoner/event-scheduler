@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
 import Themes from "./Themes";
 
 const postEventAPI = "http://localhost:3001/api/events";
@@ -53,14 +54,10 @@ export default function CreateEvent({ event }) {
             <button className="btn btn-neutral  px-6 text-lg" type="submit">
               Create Event
             </button>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                console.log("Cancel creating event");
-              }}
-              className="btn btn-neutral px-6 text-lg">
-              Cancel
-            </button>
+
+            <Link to="/">
+              <button className="btn btn-neutral px-6 text-lg">Cancel</button>
+            </Link>
           </div>
         </div>
       </form>

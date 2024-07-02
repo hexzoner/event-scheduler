@@ -49,11 +49,19 @@ export default function Themes() {
     localStorage.setItem(storageKey, JSON.stringify(e.target.value));
   }
 
+  useEffect(() => {
+    loadThemeFromStorage();
+  }, []);
+
   window.onload = () => {
+    loadThemeFromStorage();
+  };
+
+  function loadThemeFromStorage() {
     const _theme = JSON.parse(localStorage.getItem(storageKey)) || "light";
     setTheme(_theme);
     document.querySelector("html").setAttribute("data-theme", _theme);
-  };
+  }
 
   return (
     <div className="dropdown mb-2">
