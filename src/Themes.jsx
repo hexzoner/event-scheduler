@@ -42,7 +42,7 @@ export default function Themes() {
     "sunset",
   ];
 
-  const themesSwap = ["light", "night"];
+  const themesSwap = ["light", "dim"];
 
   const [theme, setTheme] = React.useState(JSON.parse(localStorage.getItem(storageKey)) || themesSwap[0]);
 
