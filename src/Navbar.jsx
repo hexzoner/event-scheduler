@@ -1,12 +1,13 @@
 import { NavLink } from "react-router-dom";
+const loginStorageKey = "event-schedule-token";
 
-export default function NavBar() {
+export default function NavBar({ authToken, setAuthToken, setUserID }) {
   return (
     <>
       <nav id="header" className="w-full py-1 bg-slate-50 shadow border-b">
         <div className="container m-auto flex justify-between mt-0 px-6 py-2">
           <NavLink to="/">
-            <h1 className="text-2xl text-sky-500 font-bold mr-10">EventS.</h1>
+            <h1 className="text-2xl text-sky-300 font-bold mr-10">EventS.</h1>
           </NavLink>
 
           <div
@@ -15,13 +16,13 @@ export default function NavBar() {
           >
             <nav>
               <ul className="md:flex items-center justify-between pt-4 md:pt-0 gap-8">
-                <li className="font-bold text-lg hover:text-sky-500">
+                <li className="font-bold text-lg hover:text-sky-300">
                   <NavLink to="/">Home</NavLink>
                 </li>
-                <li className="font-bold text-lg hover:text-sky-500">
+                <li className="font-bold text-lg hover:text-sky-300">
                   <NavLink to="/create-event">Create Event</NavLink>
                 </li>
-                <li className="font-bold text-lg hover:text-sky-500">
+                <li className="font-bold text-lg hover:text-sky-300">
                   <NavLink to="/event/2">View Event 2</NavLink>
                 </li>
               </ul>
@@ -33,21 +34,60 @@ export default function NavBar() {
             id="nav-content"
           >
             <div className="auth flex items-center w-full md:w-full gap-4">
-              <NavLink to="/login">
-                <button className="bg-sky-300 font-bold px-8 py-2 hover:bg-blue-500 hover:text-white hover:scale-110">
-                  Login
-                </button>
-              </NavLink>
-              <NavLink to="/signup">
-                <button className="bg-transparent border-2 border-sky-300 font-bold px-4 py-2 hover:bg-blue-100">
-                  Sign up
-                </button>
-              </NavLink>
-              <span className="inline-flex bg-sky-300 p-2 relative hover:rounded-full hover:shadow">
+              {authToken.length === 0 ? (
+                <>
+                  <li>
+                    <NavLink
+                      to="/login"
+                      className={({ isActive }) =>
+                        isActive
+                          ? "font-bold text-lg  scale-105 duration-300"
+                          : "scale-100 duration-300"
+                      }
+                    >
+                      <button className="bg-sky-300 font-bold px-8 py-2 hover:bg-blue-500 hover:text-white hover:scale-110">
+                        Login
+                      </button>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/signup"
+                      className={({ isActive }) =>
+                        isActive
+                          ? "font-bold text-lg  scale-105 duration-300"
+                          : "scale-100 duration-300"
+                      }
+                    >
+                      <button className="bg-transparent border-2 border-sky-300 font-bold px-4 py-2 hover:bg-blue-100">
+                        Sign up
+                      </button>
+                    </NavLink>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={(e) => {
+                      setAuthToken("");
+                      setUserID(-1);
+                      localStorage.setItem(
+                        loginStorageKey,
+                        JSON.stringify({ token: "", userID: -1 })
+                      );
+                    }}
+                  >
+                    Logout
+                  </button>
+                  <li>{/* <NavLink to="/">Logout</NavLink> */}</li>
+                </>
+              )}
+              <span className="inline-flex bg-sky-300 p-2 relative">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="25"
                   height="25"
+                  fill="#082f49"
                   className="bi bi-person-circle"
                   viewBox="0 0 16 16"
                 >
