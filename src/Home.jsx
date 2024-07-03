@@ -61,7 +61,7 @@ export default function Home() {
         Next Page
       </button> */}
 
-      <div className="container m-auto py-8">
+      <div className="container m-auto py-8 min-h-screen">
         <p className="text-center text-xl font-bold">Home Page Component</p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 shadow-sm">
           {/* -Map with App info test- */}
