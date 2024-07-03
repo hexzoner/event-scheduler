@@ -82,12 +82,11 @@ export default function NavBar({ authToken, setAuthToken, setUserID }) {
                   <li>{/* <NavLink to="/">Logout</NavLink> */}</li>
                 </>
               )}
-              <span className="inline-flex bg-sky-300 p-2 relative">
+              <span className="inline-flex bg-sky-300 p-2 relative hover:rounded-full hover:shadow">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="25"
                   height="25"
-                  fill="#082f49"
                   className="bi bi-person-circle"
                   viewBox="0 0 16 16"
                 >
