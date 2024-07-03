@@ -69,7 +69,7 @@ export default function CreateEvent() {
               <Link to="/">
                 <button className="btn btn-neutral px-6 text-lg">Cancel</button>
               </Link>
-              <button className="btn btn-primary  px-6 text-lg" type="submit">
+              <button className="btn btn-primary  px-4 text-lg" type="submit">
                 Create Event
               </button>
             </div>
