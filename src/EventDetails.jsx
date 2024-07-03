@@ -4,6 +4,7 @@ import Themes from "./Themes";
 
 export default function EventDetails() {
   const { authToken, entry, setEntry } = useOutletContext();
+  document.querySelector("html").setAttribute("data-theme", "light");
   const { id } = useParams();
   let navigate = useNavigate();
   const [form, setForm] = useState({
@@ -16,6 +17,10 @@ export default function EventDetails() {
     organizerId: -1,
   });
   const deleteUrl = `http://localhost:3001/api/events/${id}`;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     const getEventUrl = `http://localhost:3001/api/events/${id}`;
@@ -70,7 +75,7 @@ export default function EventDetails() {
           <>
             <div className="flex justify-between">
               <p className="pb-2 pl-2 pt-4">Event details (ID:{id}) </p>
-              <Themes />
+              {/* <Themes /> */}
             </div>
             <div className="text-xl flex flex-col gap-3 mb-2 mt-4 text-center">
               <p className="bg-base-100 py-4 rounded-lg">{form.title}</p>
@@ -102,9 +107,7 @@ export default function EventDetails() {
           </>
         ) : (
           <div>
-            <div className="hidden">
-              <Themes />
-            </div>
+            <div className="hidden">{/* <Themes /> */}</div>
             {/* <p className="text-3xl mb-4">Event not found</p> */}
             <div className="skeleton h-[450px]"></div>
             <Link to="/" className="text-left">

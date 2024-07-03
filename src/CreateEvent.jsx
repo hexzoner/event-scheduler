@@ -5,17 +5,22 @@ const postEventAPI = "http://localhost:3001/api/events";
 import Themes from "./Themes";
 
 export default function CreateEvent() {
+  document.querySelector("html").setAttribute("data-theme", "light");
+
+  // console.log(errorPopupEl);
   const { userID, authToken, entry, setEntry } = useOutletContext();
   const [form, setForm] = useState({ title: "", description: "", date: new Date(), location: "", latitude: 0, longitude: 0, organizerId: userID });
+  const [errorPopup, setErrorPopup] = useState({ title: "", message: "" });
   // console.log(userID);
   let navigate = useNavigate();
-
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
+    setErrorPopup({ title: "", message: "" });
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     console.log(form);
 
     fetch(postEventAPI, {
@@ -28,22 +33,36 @@ export default function CreateEvent() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         // console.log("SUCCESS");
         if (!data.error) navigate("/");
-        else alert(data.error);
+        else {
+          // alert(data.error);
+          // document.getElementById("my_modal_5").showModal();
+          // const errorPopupEl = document.getElementById("errorPopup");
+          setErrorPopup({ title: "Error", message: data.error });
+          document.getElementById("errorPopup").show();
+        }
       })
       .catch((err) => console.log(err));
   };
 
   return (
-    <div className="min-h-[100vh]">
+    <div className="min-h-screen">
+      <dialog id="errorPopup" className="modal ">
+        <div className="modal-box bg-warning text-warning-content">
+          <h3 className="font-bold text-lg">{errorPopup.title}</h3>
+          <p className="py-4">{errorPopup.message}</p>
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
+
       <div className="bg-base-300 max-w-[800px] m-auto my-10 rounded-lg">
         <div className="flex justify-between items-center">
           <p className="text-2xl pt-4 ml-6">Add New Event</p>
-          <div className="text-2xl pt-4 ml-6 mr-4">
-            <Themes />
-          </div>
+          <div className="text-2xl pt-4 ml-6 mr-4">{/* <Themes /> */}</div>
         </div>
         <form onSubmit={handleSubmit} action="submit">
           <div className="flex flex-col gap-2 mx-4 py-4">
