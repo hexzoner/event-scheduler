@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 const loginUrl = "http://localhost:3001/api/auth/login";
-import { authenticate } from "./App";
+const loginStorageKey = "event-schedule-token";
 
 export default function Login() {
   const [usernameEmail, setUsernameEmail] = useState("");
   const [passwordLogin, setPasswordLogin] = useState("");
+  const { setAuthToken, setUserID } = useOutletContext();
 
   let navigate = useNavigate();
   const routeChange = () => {
@@ -31,13 +32,16 @@ export default function Login() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        authenticate(data.token);
-        navigate("/");
+        if (data.error) alert(data.error);
+        else {
+          console.log(data);
+          setAuthToken(data.token);
+          localStorage.setItem(loginStorageKey, JSON.stringify({ token: data.token, userID: data.user.id }));
+          setUserID(data.user.id);
+          navigate("/");
+        }
       })
       .catch((err) => console.log(err));
-    // console.log(newLogin);
-    //onSave(newLogin);
   };
 
   return (
