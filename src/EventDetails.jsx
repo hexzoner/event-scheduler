@@ -8,7 +8,7 @@ export default function EventDetails() {
   const [editMode, setEditMode] = useState(false);
   const { authToken, entry, setEntry } = useOutletContext();
 
-  document.querySelector("html").setAttribute("data-theme", "light");
+  // document.querySelector("html").setAttribute("data-theme", "light");
   const { id } = useParams();
   let navigate = useNavigate();
   const [form, setForm] = useState(null);
