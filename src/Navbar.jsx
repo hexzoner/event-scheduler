@@ -6,7 +6,7 @@ export default function NavBar() {
       <nav id="header" className="w-full py-1 bg-slate-50 shadow border-b">
         <div className="container m-auto flex justify-between mt-0 px-6 py-2">
           <NavLink to="/">
-            <h1 className="text-2xl text-sky-300 font-bold mr-10">EventS.</h1>
+            <h1 className="text-2xl text-sky-500 font-bold mr-10">EventS.</h1>
           </NavLink>
 
           <div
@@ -15,13 +15,13 @@ export default function NavBar() {
           >
             <nav>
               <ul className="md:flex items-center justify-between pt-4 md:pt-0 gap-8">
-                <li className="font-bold text-lg hover:text-sky-300">
+                <li className="font-bold text-lg hover:text-sky-500">
                   <NavLink to="/">Home</NavLink>
                 </li>
-                <li className="font-bold text-lg hover:text-sky-300">
+                <li className="font-bold text-lg hover:text-sky-500">
                   <NavLink to="/create-event">Create Event</NavLink>
                 </li>
-                <li className="font-bold text-lg hover:text-sky-300">
+                <li className="font-bold text-lg hover:text-sky-500">
                   <NavLink to="/event/2">View Event 2</NavLink>
                 </li>
               </ul>
@@ -43,18 +43,17 @@ export default function NavBar() {
                   Sign up
                 </button>
               </NavLink>
-              <span className="inline-flex bg-sky-300 p-2 relative">
+              <span className="inline-flex bg-sky-300 p-2 relative hover:rounded-full hover:shadow">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="25"
                   height="25"
-                  fill="#082f49"
                   className="bi bi-person-circle"
                   viewBox="0 0 16 16"
                 >
                   <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
                   />
                 </svg>
