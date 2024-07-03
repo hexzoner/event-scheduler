@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useNavigate, useOutletContext } from "react-router-dom";
 const postEventAPI = "http://localhost:3001/api/events";
-import Themes from "./Themes";
+// import Themes from "./Themes";
 
 export default function CreateEvent() {
   document.querySelector("html").setAttribute("data-theme", "light");
@@ -21,7 +21,7 @@ export default function CreateEvent() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(form);
+    // console.log(form);
 
     fetch(postEventAPI, {
       method: "POST",
@@ -66,8 +66,8 @@ export default function CreateEvent() {
         </div>
         <form onSubmit={handleSubmit} action="submit">
           <div className="flex flex-col gap-2 mx-4 py-4">
-            <input onChange={handleChange} className="input input-bordered input-lg w-full" type="text" name="title" id="title" placeholder="Event Title..." value={form.title} />
             <input onChange={handleChange} className="input input-bordered input-lg w-fit" type="datetime-local" name="date" id="date" value={form.date} />
+            <input onChange={handleChange} className="input input-bordered input-lg w-full" type="text" name="title" id="title" placeholder="Event Title..." value={form.title} />
             <input
               onChange={handleChange}
               className="input input-bordered input-lg w-full " //"input-error"

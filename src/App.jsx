@@ -17,7 +17,7 @@ export function dateFormat(date) {
   const mm = date.toString().slice(5, 7);
   const dd = date.toString().slice(8, 10);
   const time = date.toString().slice(11, 16);
-  return `${dd}.${mm}.${yy} - ${time}`;
+  return `${dd}.${mm}.${yy} ${time}`;
 }
 
 function App() {
