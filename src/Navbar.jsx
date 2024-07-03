@@ -1,3 +1,4 @@
+import Themes from "./Themes";
 import { NavLink } from "react-router-dom";
 const loginStorageKey = "event-schedule-token";
 
@@ -23,6 +24,7 @@ export default function NavBar({ authToken, setAuthToken, setUserID }) {
         </div>
         <div className="order-2 md:order-3 flex flex-wrap items-center justify-end mr-0 md:mr-4" id="nav-content">
           <div className="auth flex items-center w-full md:w-full gap-4">
+            <Themes />
             {authToken.length === 0 ? (
               <>
                 <NavLink to="/login" className={({ isActive }) => (isActive ? "font-bold text-lg  scale-105 duration-300" : "scale-100 duration-300")}>

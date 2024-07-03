@@ -5,7 +5,7 @@ const postEventAPI = "http://localhost:3001/api/events";
 // import Themes from "./Themes";
 
 export default function CreateEvent() {
-  document.querySelector("html").setAttribute("data-theme", "light");
+  // document.querySelector("html").setAttribute("data-theme", "light");
 
   // console.log(errorPopupEl);
   const { userID, authToken, entry, setEntry } = useOutletContext();
