@@ -2,10 +2,16 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'gradient': 'linear-gradient( #7dd3fc,  #3b82f6)',
+        
+      }
+    },
   },
   daisyui: {
     themes: [
+    
       "light",
       "dark",
       "cupcake",
