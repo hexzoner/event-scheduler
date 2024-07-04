@@ -5,7 +5,6 @@ const signUpUrl = "http://localhost:3001/api/users";
 const loginUrl = "http://localhost:3001/api/auth/login";
 const loginStorageKey = "event-schedule-token";
 
-
 export default function SignUp() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -16,17 +15,15 @@ export default function SignUp() {
   useEffect(() => {
     const storageKey = "event-scheduler-theme";
     const storedValue = JSON.parse(localStorage.getItem(storageKey));
-    
-    if (storedValue === 'dim') {
+
+    if (storedValue === "dim") {
       setIsDarkmode(true);
     } else {
       setIsDarkmode(false);
     }
-
   }, []);
 
-
- // console.log('IS DARK MODE: ' +isDarkmode);
+  console.log("IS DARK MODE: " + isDarkmode);
 
   let navigate = useNavigate();
   const routeChange = () => {
@@ -76,29 +73,27 @@ export default function SignUp() {
   };
 
   return (
-    
-    <div className={isDarkmode? "inset-0  bg-opacity-50 flex items-center justify-center h-screen":" inset-0 bg-gradient-to-tr from-sky-300 via-sky-400 to-blue-500 bg-opacity-50 flex items-center justify-center h-screen"}>
-    <div className=" mask mask-parallelogram-3  shadow-lg">
-      <div className={isDarkmode?"p-32 m-6  shadow-lg w-full  max-w-md bg-primary-content":"  bg-white p-32 m-6  shadow-lg w-full  max-w-md"}>
-        <h2 className="text-xl font-bold mb-8 text-center">Sign Up</h2>
+    <div className=" inset-0 bg-gradient-to-tr from-secondary via-primary to-secondary flex items-center justify-center h-screen">
+      <div className=" mask mask-parallelogram-3  shadow-lg">
+        <div className="p-32 m-6  shadow-lg w-full  max-w-md bg-base-300 text-base-content">
+          <h2 className="text-xl font-bold mb-8 text-center ">Sign Up</h2>
 
-        <label className="block mb-2">Full Name:</label>
-        <input value={username} onChange={(e) => setUsername(e.target.value)} type="text" className="w-full p-2 border border-sky-500 rounded" required placeholder="John Doe" />
-        <label className="block my-2">Password:</label>
-        <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" className="w-full p-2 border border-sky-500 rounded" required placeholder="Password" />
-        <label className="block my-2">Email:</label>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full p-2 border border-sky-500 rounded" required placeholder="email@example.com" />
-        <div className="mt-6">
-          <button onClick={routeChange} className="px-4 py-2 bg-sky-500 text-white rounded mr-2 hover:bg-sky-700">
-            Cancel
-          </button>
-          <button onClick={handleSubmit} className="px-4 py-2 bg-sky-500 text-white rounded hover:bg-sky-700">
-            Sign up!
-          </button>
+          <label className="block mb-2">Full Name:</label>
+          <input value={username} onChange={(e) => setUsername(e.target.value)} type="text" className="w-full p-2 border border-primary rounded" required placeholder="John Doe" />
+          <label className="block my-2">Password:</label>
+          <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" className="w-full p-2 border border-primary rounded" required placeholder="Password" />
+          <label className="block my-2">Email:</label>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full p-2 border border-primary rounded" required placeholder="email@example.com" />
+          <div className="mt-6">
+            <button onClick={routeChange} className="px-4 py-2 bg-primary text-primary-content rounded mr-2 hover:bg-sky-700">
+              Cancel
+            </button>
+            <button onClick={handleSubmit} className="px-4 py-2 bg-primary text-primary-content hover:bg-sky-700">
+              Sign up!
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-    
   );
 }
