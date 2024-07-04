@@ -20,15 +20,15 @@ const monthNames = [
 export default function Home() {
   const [events, setEvents] = useState([]);
   const [page, setPage] = useState(1);
-  // const [hasNext, setHasNext] = useState(true);
-  // const [hasPrev, setHasPrev] = useState(false);
+  const [hasNext, setHasNext] = useState(true);
+  const [hasPrev, setHasPrev] = useState(false);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/api/events`)
+      .get(`http://localhost:3001/api/events?limit=9&page=${page}`)
       .then((res) => {
-        // setHasNext(res.data.hasNextPage);
-        // setHasPrev(res.data.hasPreviousPage);
+        setHasNext(res.data.hasNextPage);
+        setHasPrev(res.data.hasPreviousPage);
         setEvents(res.data.results);
       })
       .catch((err) => {
@@ -38,27 +38,9 @@ export default function Home() {
 
   return (
     <>
-      {/* 
-      <button
-        disabled={!hasPrev}
-        onClick={(e) => {
-          setPage(page - 1);
-        }}
-      >
-        Prev Page
-      </button>
-      <button
-        disabled={!hasNext}
-        onClick={(e) => {
-          setPage(page + 1);
-        }}
-      >
-        Next Page
-      </button> */}
-
-      <div className="container m-auto py-8 min-h-screen">
+      <div className="container m-auto py-8 min-h-[90vh]">
         <p className="text-center text-4xl font-bold mb-10">Last events</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 shadow-sm">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
           {/* -Map with App info test- */}
           {events.map((event) => {
             const eventYear = event.date.slice(0, 4);
@@ -67,7 +49,7 @@ export default function Home() {
             const monthName = monthNames[eventMonth - 1];
 
             return (
-              <div className="flex row items-start" key={event.id}>
+              <div className="flex row items-start shadow-sm" key={event.id}>
                 <ul className="text-center p-4 border min-w-48 h-full">
                   <li className="text-5xl font-bold">{eventDay}</li>
                   <li className="text-xl font-bold text-info">{monthName}</li>
@@ -109,6 +91,36 @@ export default function Home() {
               </div>
             );
           })}
+        </div>
+        {/* Pagination */}
+        <div className="flex justify-center gap-6 mt-8">
+          <button
+            className={
+              hasPrev
+                ? "bg-info text-neutral font-bold px-8 py-2 hover:bg-primary hover:text-base-100"
+                : "font-bold px-8 py-2 bg-base-300"
+            }
+            // className="bg-info text-neutral font-bold px-8 py-2 hover:bg-primary hover:text-base-100"
+            disabled={!hasPrev}
+            onClick={(e) => {
+              setPage(page - 1);
+            }}
+          >
+            Prev Page
+          </button>
+          <button
+            className={
+              hasNext
+                ? "bg-info text-neutral font-bold px-8 py-2 hover:bg-primary hover:text-base-100"
+                : "font-bold px-8 py-2 bg-base-300"
+            }
+            disabled={!hasNext}
+            onClick={(e) => {
+              setPage(page + 1);
+            }}
+          >
+            Next Page
+          </button>
         </div>
       </div>
     </>
