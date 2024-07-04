@@ -6,6 +6,7 @@ import { dateFormat } from "./App";
 export default function EventDetails() {
   const [errorPopup, setErrorPopup] = useState({ title: "", message: "" });
   const [editMode, setEditMode] = useState(false);
+  const [notFound, setNotFound] = useState(false);
   const { authToken, entry, setEntry } = useOutletContext();
 
   // document.querySelector("html").setAttribute("data-theme", "light");
@@ -24,6 +25,8 @@ export default function EventDetails() {
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
+        if (data == null) setNotFound(true);
+        else setNotFound(false);
         const _data = data;
         setForm(_data);
       })
@@ -80,7 +83,12 @@ export default function EventDetails() {
       organizerId: form.organizerId,
     };
 
-    console.log(body);
+    if (body.title === "" || body.description === "" || body.location === "") {
+      showErrorPopup("Error", "Please enter all the information about the event");
+      return;
+    }
+
+    // console.log(body);
     // console.log(form);
 
     fetch(deleteUrl, {
@@ -104,7 +112,6 @@ export default function EventDetails() {
   }
 
   function cancelEditMode(e) {
-    // setEditMode(false);
     window.location.reload();
   }
 
@@ -138,85 +145,106 @@ export default function EventDetails() {
       </dialog>
 
       <div className="text-2xl py-4 my-10 bg-base-300 max-w-[800px] m-auto px-4 rounded-lg">
-        {form ? (
+        {notFound ? (
           <>
-            <div className="flex justify-between">
-              <p className="pb-2 pl-2 pt-4">Event details</p>
-              {/* <Themes /> */}
-            </div>
-            <div className="text-xl flex flex-col gap-3 mb-2 mt-4 text-center">
-              {editMode ? (
-                <>
-                  <input
-                    onChange={handleEditing}
-                    type="datetime-local"
-                    name="date"
-                    id="date"
-                    className="bg-base-100 py-4 rounded-lg text-center px-8 w-fit m-auto"
-                    // defaultValue={form.date ? new Date().toISOString().slice(0, 16) : ""}
-                    defaultValue={form.date ? form.date : ""}
-                  />
-                  <input onChange={handleEditing} type="text" name="title" id="title" className="bg-base-100 py-4 rounded-lg px-4 text-center" placeholder="The title..." value={form.title} />
-
-                  <input onChange={handleEditing} type="text" name="location" className="bg-base-100 py-4 rounded-lg px-4 text-center" placeholder="Enter the location..." value={form.location} />
-                  <textarea
-                    onChange={handleEditing}
-                    name="description"
-                    id="description"
-                    className="resize-none bg-base-100 py-4 rounded-lg min-h-[150px] px-4 text-center"
-                    placeholder="Enter the description..."
-                    value={form.description}></textarea>
-                </>
-              ) : (
-                <>
-                  <p className="bg-base-100 py-4 rounded-lg w-fit m-auto px-16">{dateFormat(form.date)}</p>
-                  <p className="bg-base-100 py-4 rounded-lg">{form.title}</p>
-                  <p className="bg-base-100 py-4 rounded-lg">{form.location}</p>
-                  <p className="bg-base-100 py-4 rounded-lg min-h-[150px] px-4">{form.description}</p>
-                </>
-              )}
-
-              <div className="flex justify-between">
-                <Link to="/" className="text-left">
-                  <button className="btn btn-neutral  w-fit m-auto mt-3 px-8 text-lg">Return</button>
-                </Link>
-                <div className="flex gap-3">
-                  {authToken && (
-                    <>
-                      {editMode ? (
-                        <button onClick={cancelEditMode} className="btn btn-neutral  w-fit m-auto mt-3 px-6 text-lg">
-                          Cancel
-                        </button>
-                      ) : (
-                        <button onClick={handleDelete} className="btn btn-error  w-fit m-auto mt-3 px-6 text-lg">
-                          Delete
-                        </button>
-                      )}
-
-                      {editMode ? (
-                        <button onClick={handeSaveEdit} className="btn btn-success  w-fit m-auto mt-3 px-8 text-lg">
-                          Save
-                        </button>
-                      ) : (
-                        <button onClick={handleEdit} className="btn btn-primary  w-fit m-auto mt-3 px-8 text-lg">
-                          Edit
-                        </button>
-                      )}
-                    </>
-                  )}
-                </div>
-              </div>
+            <div className="text-3xl text-center my-24 h-72 flex flex-col justify-around">
+              <p>Event not found</p>
+              <Link to="/" className="text-left m-auto ">
+                <button className="btn btn-neutral   mt-3 px-8 text-lg w-fit m-auto ">Return to the Home page</button>
+              </Link>
             </div>
           </>
         ) : (
-          <div>
-            <div className="hidden">{/* <Themes /> */}</div>
-            {/* <p className="text-3xl mb-4">Event not found</p> */}
-            <div className="skeleton h-[450px]"></div>
-            <Link to="/" className="text-left">
-              <button className="btn btn-neutral w-fit m-auto mt-3 px-8 text-lg">Return</button>
-            </Link>
-          </div>
+          <>
+            {form ? (
+              <>
+                <div className="flex justify-between">
+                  <p className="pl-2 w-full text-center text-2xl">Event information</p>
+                  {/* <Themes /> */}
+                </div>
+                <div className="text-lg flex flex-col gap-3 mb-2 mt-4 text-center">
+                  {editMode ? (
+                    <>
+                      <input
+                        onChange={handleEditing}
+                        type="datetime-local"
+                        name="date"
+                        id="date"
+                        className="bg-base-100 py-4 rounded-lg text-center px-8 w-fit m-auto  input input-bordered input-lg"
+                        // defaultValue={form.date ? new Date().toISOString().slice(0, 16) : ""}
+                        defaultValue={form.date ? new Date(form.date).toISOString().slice(0, 16) : ""}
+                      />
+                      <input
+                        onChange={handleEditing}
+                        type="text"
+                        name="title"
+                        id="title"
+                        className="bg-base-100 py-4 rounded-lg px-4 text-center input input-bordered input-lg"
+                        placeholder="The title..."
+                        value={form.title}
+                      />
+
+                      <input
+                        onChange={handleEditing}
+                        type="text"
+                        name="location"
+                        className="bg-base-100 py-4 rounded-lg px-4 text-center  input input-bordered input-lg"
+                        placeholder="Enter the location..."
+                        value={form.location}
+                      />
+                      <textarea
+                        onChange={handleEditing}
+                        name="description"
+                        id="description"
+                        className="resize-none bg-base-100 py-4 rounded-lg min-h-[150px] px-4 text-center  input input-bordered input-lg"
+                        placeholder="Enter the description..."
+                        value={form.description}></textarea>
+                    </>
+                  ) : (
+                    <>
+                      <p className="bg-base-100 py-4 rounded-lg w-fit m-auto px-16">{dateFormat(form.date)}</p>
+                      <p className="bg-base-100 py-4 rounded-lg">{form.title}</p>
+                      <p className="bg-base-100 py-4 rounded-lg">{form.location}</p>
+                      <p className="bg-base-100 py-4 rounded-lg min-h-[150px] px-4">{form.description}</p>
+                    </>
+                  )}
+
+                  <div className="flex justify-between">
+                    <Link to="/" className="text-left">
+                      <button className="btn btn-neutral  w-fit m-auto mt-3 px-8 text-lg">Return</button>
+                    </Link>
+                    <div className="flex gap-3">
+                      {authToken && (
+                        <>
+                          {editMode ? (
+                            <button onClick={cancelEditMode} className="btn btn-neutral  w-fit m-auto mt-3 px-6 text-lg">
+                              Cancel
+                            </button>
+                          ) : (
+                            <button onClick={handleDelete} className="btn btn-error  w-fit m-auto mt-3 px-6 text-lg">
+                              Delete
+                            </button>
+                          )}
+
+                          {editMode ? (
+                            <button onClick={handeSaveEdit} className="btn btn-success  w-fit m-auto mt-3 px-8 text-lg">
+                              Save
+                            </button>
+                          ) : (
+                            <button onClick={handleEdit} className="btn btn-primary  w-fit m-auto mt-3 px-8 text-lg">
+                              Edit
+                            </button>
+                          )}
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="skeleton h-[450px]"></div>
+            )}
+          </>
         )}
       </div>
     </div>

@@ -9,7 +9,7 @@ export default function CreateEvent() {
 
   // console.log(errorPopupEl);
   const { userID, authToken, entry, setEntry } = useOutletContext();
-  const [form, setForm] = useState({ title: "", description: "", date: new Date(), location: "", latitude: 0, longitude: 0, organizerId: userID });
+  const [form, setForm] = useState({ title: "", description: "", date: new Date().toISOString().slice(0, 16), location: "", latitude: 0, longitude: 0, organizerId: userID });
   const [errorPopup, setErrorPopup] = useState({ title: "", message: "" });
   // console.log(userID);
   let navigate = useNavigate();
@@ -18,10 +18,18 @@ export default function CreateEvent() {
     setErrorPopup({ title: "", message: "" });
   }
 
+  function showErrorPopup(title, msg) {
+    setErrorPopup({ title: title, message: msg });
+    document.getElementById("errorPopup").show();
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // console.log(form);
+    if (form.title === "" || form.description === "" || form.location === "") {
+      showErrorPopup("Error", "Please enter all the information about the event");
+      return;
+    }
 
     fetch(postEventAPI, {
       method: "POST",
@@ -34,12 +42,9 @@ export default function CreateEvent() {
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
-        // console.log("SUCCESS");
         if (!data.error) navigate("/");
         else {
           // alert(data.error);
-          // document.getElementById("my_modal_5").showModal();
-          // const errorPopupEl = document.getElementById("errorPopup");
           setErrorPopup({ title: "Error", message: data.error });
           document.getElementById("errorPopup").show();
         }
@@ -60,17 +65,14 @@ export default function CreateEvent() {
       </dialog>
 
       <div className="bg-base-300 max-w-[800px] m-auto my-10 rounded-lg">
-        <div className="flex justify-between items-center">
-          <p className="text-2xl pt-4 ml-6">Add New Event</p>
-          <div className="text-2xl pt-4 ml-6 mr-4">{/* <Themes /> */}</div>
-        </div>
+        <p className="text-2xl pt-4 text-center w-full">Add New Event</p>
         <form onSubmit={handleSubmit} action="submit">
-          <div className="flex flex-col gap-2 mx-4 py-4">
-            <input onChange={handleChange} className="input input-bordered input-lg w-fit" type="datetime-local" name="date" id="date" value={form.date} />
-            <input onChange={handleChange} className="input input-bordered input-lg w-full" type="text" name="title" id="title" placeholder="Event Title..." value={form.title} />
+          <div className="flex flex-col gap-3 mx-4 py-4">
+            <input onChange={handleChange} className="input input-bordered input-lg w-fit m-auto px-8 text-center" type="datetime-local" name="date" id="date" value={form.date} />
+            <input onChange={handleChange} className="input input-bordered input-lg w-full text-center" type="text" name="title" id="title" placeholder="Event Title..." value={form.title} />
             <input
               onChange={handleChange}
-              className="input input-bordered input-lg w-full " //"input-error"
+              className="input input-bordered input-lg w-full text-center" //"input-error"
               type="text"
               name="location"
               id="location"
@@ -79,7 +81,7 @@ export default function CreateEvent() {
             />
             <textarea
               onChange={handleChange}
-              className="textarea textarea-bordered textarea-lg w-full resize-none h-[150px]" //"textarea-error"
+              className="textarea textarea-bordered textarea-lg w-full resize-none h-[150px] text-center" //"textarea-error"
               name="description"
               id="description"
               placeholder="Event description..."
