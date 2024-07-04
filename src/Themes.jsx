@@ -42,7 +42,7 @@ export default function Themes() {
     "sunset",
   ];
 
-  const themesSwap = ["light", "dim"];
+  const themesSwap = ["nord", "business"];
 
   const [theme, setTheme] = React.useState(JSON.parse(localStorage.getItem(storageKey)) || themesSwap[0]);
 
@@ -74,8 +74,8 @@ export default function Themes() {
 
   function handleSwap(e) {
     e.target.checked = !e.target.checked;
-    console.log(e.target.checked);
-    console.log(theme);
+    // console.log(e.target.checked);
+    // console.log(theme);
     e.target.checked ? applyTheme(themesSwap[1]) : applyTheme(themesSwap[0]);
   }
 
