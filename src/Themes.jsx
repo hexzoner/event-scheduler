@@ -42,9 +42,7 @@ export default function Themes() {
     "sunset",
   ];
 
-
-  const themesSwap = ["cupcake", "night"];
-
+  const themesSwap = ["cmyk", "business"];
 
   const [theme, setTheme] = React.useState(JSON.parse(localStorage.getItem(storageKey)) || themesSwap[0]);
 

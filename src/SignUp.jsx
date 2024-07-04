@@ -73,8 +73,8 @@ export default function SignUp() {
   };
 
   return (
-    <div className=" inset-0 bg-gradient-to-tr from-secondary via-primary to-secondary flex items-center justify-center h-screen">
-      <div className=" mask mask-parallelogram-3  shadow-lg">
+    <div className=" inset-0 bg-gradient-to-tr from-base-200 via-primary to-base-200 flex items-center justify-center h-screen">
+      <div className=" mask mask-parallelogram-3 shadow-lg">
         <div className="p-32 m-6  shadow-lg w-full  max-w-md bg-base-300 text-base-content">
           <h2 className="text-xl font-bold mb-8 text-center ">Sign Up</h2>
 
@@ -88,7 +88,7 @@ export default function SignUp() {
             <button onClick={routeChange} className="px-4 py-2 bg-primary text-primary-content rounded mr-2 hover:bg-sky-700">
               Cancel
             </button>
-            <button onClick={handleSubmit} className="px-4 py-2 bg-primary text-primary-content hover:bg-sky-700">
+            <button onClick={handleSubmit} className="px-4 py-2 bg-primary text-primary-content rounded hover:bg-sky-700">
               Sign up!
             </button>
           </div>
