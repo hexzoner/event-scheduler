@@ -118,9 +118,9 @@ export default function EventDetails() {
   return (
     <div className="min-h-[100vh]">
       <dialog id="errorPopup" className="modal ">
-        <div className="modal-box bg-warning text-warning-content">
-          <h3 className="font-bold text-lg">{errorPopup.title}</h3>
-          <p className="py-4">{errorPopup.message}</p>
+        <div className="modal-box bg-primary text-primary-content">
+          <h3 className="font-bold text-xl">{errorPopup.title}</h3>
+          <p className="py-4 text-lg">{errorPopup.message}</p>
         </div>
         <form method="dialog" className="modal-backdrop">
           <button>close</button>
@@ -128,8 +128,8 @@ export default function EventDetails() {
       </dialog>
 
       <dialog id="deletePopup" className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box bg-warning">
-          <h3 className="font-bold text-lg text-warning-content text-center">Are you sure you want to delete this event?</h3>
+        <div className="modal-box bg-primary">
+          <h3 className="font-bold text-lg text-primary-content text-center">Are you sure you want to delete this event?</h3>
 
           <div className="modal-action">
             <div className="flex items-center justify-evenly w-full">
@@ -137,7 +137,7 @@ export default function EventDetails() {
                 Confirm
               </button>
               <form method="dialog">
-                <button className="btn text-lg px-6">Close</button>
+                <button className="btn text-lg px-6">Cancel</button>
               </form>
             </div>
           </div>
@@ -159,7 +159,7 @@ export default function EventDetails() {
             {form ? (
               <>
                 <div className="flex justify-between">
-                  <p className="pl-2 w-full text-center text-2xl">Event information</p>
+                  <p className="pl-2 w-full text-center text-2xl font-bold">Event information</p>
                   {/* <Themes /> */}
                 </div>
                 <div className="text-lg flex flex-col gap-3 mb-2 mt-4 text-center">
@@ -167,6 +167,7 @@ export default function EventDetails() {
                     <>
                       <input
                         onChange={handleEditing}
+                        onClick={(e) => e.currentTarget.showPicker()}
                         type="datetime-local"
                         name="date"
                         id="date"

@@ -1,12 +1,10 @@
-import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useNavigate, useOutletContext } from "react-router-dom";
 const postEventAPI = "http://localhost:3001/api/events";
 // import Themes from "./Themes";
 
 export default function CreateEvent() {
-  // document.querySelector("html").setAttribute("data-theme", "light");
-
   // console.log(errorPopupEl);
   const { userID, authToken, entry, setEntry } = useOutletContext();
   const [form, setForm] = useState({ title: "", description: "", date: new Date().toISOString().slice(0, 16), location: "", latitude: 0, longitude: 0, organizerId: userID });
@@ -55,9 +53,9 @@ export default function CreateEvent() {
   return (
     <div className="min-h-screen">
       <dialog id="errorPopup" className="modal ">
-        <div className="modal-box bg-warning text-warning-content">
-          <h3 className="font-bold text-lg">{errorPopup.title}</h3>
-          <p className="py-4">{errorPopup.message}</p>
+        <div className="modal-box bg-primary text-primary-content">
+          <h3 className="font-bold text-xl">{errorPopup.title}</h3>
+          <p className="py-4 text-lg">{errorPopup.message}</p>
         </div>
         <form method="dialog" className="modal-backdrop">
           <button>close</button>
@@ -65,11 +63,28 @@ export default function CreateEvent() {
       </dialog>
 
       <div className="bg-base-300 max-w-[800px] m-auto my-10 rounded-lg">
-        <p className="text-2xl pt-4 text-center w-full">Add New Event</p>
+        <p className="text-2xl pt-4 text-center w-full font-bold">Create Event</p>
         <form onSubmit={handleSubmit} action="submit">
           <div className="flex flex-col gap-3 mx-4 py-4">
-            <input onChange={handleChange} className="input input-bordered input-lg w-fit m-auto px-8 text-center" type="datetime-local" name="date" id="date" value={form.date} />
-            <input onChange={handleChange} className="input input-bordered input-lg w-full text-center" type="text" name="title" id="title" placeholder="Event Title..." value={form.title} />
+            <input
+              onClick={(e) => e.currentTarget.showPicker()}
+              onChange={handleChange}
+              className="input input-bordered input-lg w-fit m-auto px-8 text-center"
+              type="datetime-local"
+              name="date"
+              id="date"
+              value={form.date}
+            />
+            <input
+              onClick={(e) => e.currentTarget.showPicker()}
+              onChange={handleChange}
+              className="input input-bordered input-lg w-full text-center"
+              type="text"
+              name="title"
+              id="title"
+              placeholder="Event Title..."
+              value={form.title}
+            />
             <input
               onChange={handleChange}
               className="input input-bordered input-lg w-full text-center" //"input-error"
