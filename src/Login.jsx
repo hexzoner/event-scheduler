@@ -34,7 +34,7 @@ export default function Login() {
       .then((data) => {
         if (data.error) alert(data.error);
         else {
-          console.log(data);
+          // console.log(data);
           setAuthToken(data.token);
           localStorage.setItem(loginStorageKey, JSON.stringify({ token: data.token, userID: data.user.id }));
           setUserID(data.user.id);
